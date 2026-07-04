@@ -114,7 +114,19 @@ footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-
 
 @media (max-width: 900px) {
     .page-home, .page-about, .page-contact { flex-direction: column; gap: 3rem; }
-    .section-title { font-size: 3rem; }
-    .nav-links { display: none; }
-    footer { flex-direction: column; text-align: center; gap: 2rem; }
+    .section-title { font-size: 2.5rem; margin-bottom: 1.5rem; }
+    main { padding: 3rem 5%; }
+    
+    /* Mobile Navigation */
+    nav { flex-direction: column; gap: 1.5rem; padding: 1rem 5%; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; width: 100%; }
+    
+    /* Layout Adjustments */
+    .hero-image { max-width: 100%; aspect-ratio: 1/1; margin-bottom: 1rem; }
+    .drop-cap { font-size: 4rem; }
+    .about-text { font-size: 1.1rem; }
+    .btn-group { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    
+    /* Footer */
+    footer { flex-direction: column; text-align: center; gap: 1.5rem; }
 }
