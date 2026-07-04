@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subrato. | Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="config.js"></script>
+    <!-- Marked library for parsing Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .post-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        .post-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .post-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .post-content h1, .post-content h2, .post-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .post-content pre {
+            background: var(--bg-alt);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+        .post-content blockquote {
+            border-left: 3px solid var(--text-main);
+            margin: 1.5rem 0;
+            padding-left: 1rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 4rem;
+            text-decoration: none;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--text-main);
+            padding-bottom: 2px;
+        }
+        .back-link:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-circle">s</div>
+            journey
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="career.html">Career</a>
+            <a href="blogs.html" class="active">Blogs</a>
+            <a href="thoughts.html">Thoughts</a>
+            <a href="postcards.html">Postcards</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    
+    <main class="post-container">
+        <div id="postContent">
+            <h2 style="text-align:center;">Loading...</h2>
+        </div>
+        <a href="blogs.html" class="back-link">← Back to Blogs</a>
+    </main>
+    
+    <footer>
+        <div>
+            <div class="footer-logo">journey.</div>
+            <div class="footer-desc">A slow archive of a life still being written.</div>
+        </div>
+        <div class="footer-credits">
+            © 2026 — MADE WITH PATIENCE
+        </div>
+    </footer>
+
+    <script>
+        async function fetchPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+            
+            const container = document.getElementById('postContent');
+            
+            if (!postId) {
+                container.innerHTML = '<h2 style="text-align:center;">Post not found</h2>';
+                return;
+            }
+
+            try {
+                // Fetching from the existing /api/blogs endpoint and finding the specific post
+                // For a full app, you'd add a GET /api/blogs/{id} endpoint to FastAPI.
+                // We'll just fetch all and find it since it's a small personal blog.
+                const res = await fetch(`${API_URL}/api/blogs`);
+                const entries = await res.json();
+                
+                const post = entries.find(e => e.id == postId);
+                
+                if (!post) {
+                    container.innerHTML = '<h2 style="text-align:center;">Post not found</h2>';
+                    return;
+                }
+                
+                // Use Marked.js to parse the markdown content to HTML
+                const parsedContent = marked.parse(post.content);
+                
+                container.innerHTML = `
+                    <div class="post-header">
+                        <div class="post-date">${post.date}</div>
+                        <h1 class="post-title">${post.title}</h1>
+                    </div>
+                    <div class="post-content">
+                        ${parsedContent}
+                    </div>
+                `;
+            } catch (err) {
+                console.error("Error fetching post", err);
+                container.innerHTML = '<h2 style="text-align:center;">Error loading post</h2>';
+            }
+        }
+        
+        fetchPost();
+    </script>
+</body>
+</html>

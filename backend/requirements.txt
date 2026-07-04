@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-dotenv
+pydantic
+sqlalchemy
+pyjwt
+python-multipart
+psycopg2-binary
+cloudinary

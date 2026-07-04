@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subrato. | About</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="config.js"></script>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-circle">s</div>
+            journey
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="career.html">Career</a>
+            <a href="blogs.html">Blogs</a>
+            <a href="thoughts.html">Thoughts</a>
+            <a href="postcards.html">Postcards</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <main class="page-about">
+        <div class="content-left">
+            <span class="overline">About</span>
+            <h2 class="section-title">Subrato Singh.</h2>
+            <div class="script-text">
+                Life shaped me slowly. I'm still letting it.
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="drop-cap-wrapper">
+                <span class="drop-cap" id="aboutDropCap">I</span>
+                <p class="about-text" id="aboutBioText">
+                    Loading...
+                </p>
+            </div>
+            <p class="reach-me">
+                Reach me at
+                <a href="mailto:subratosingh@zohomail.in">subratosingh@zohomail.in</a>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <div class="footer-logo">journey.</div>
+            <div class="footer-desc">
+                A slow archive of a life still being written.
+            </div>
+        </div>
+        <div class="footer-credits">© 2026 — MADE WITH PATIENCE</div>
+    </footer>
+    <script>
+        
+        async function fetchBio() {
+            try {
+                const res = await fetch(`${API_URL}/api/content/about_bio`);
+                const data = await res.json();
+                if (data.content) {
+                    const text = data.content;
+                    document.getElementById('aboutDropCap').textContent = text.charAt(0);
+                    document.getElementById('aboutBioText').innerHTML = text.substring(1);
+                }
+            } catch (err) {
+                console.error("Error fetching bio", err);
+            }
+        }
+        fetchBio();
+    </script>
+</body>
+</html>

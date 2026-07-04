@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-900">Admin Login</h2>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Sign in
+                </button>
+                <div id="loginMsg" class="text-sm text-center text-red-600 mt-2"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden min-h-screen flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-900 text-white flex flex-col">
+            <div class="p-6 text-2xl font-bold tracking-wider">CMS</div>
+            <nav class="flex-1 px-4 space-y-2">
+                <a href="#" onclick="showTab('about')" class="block px-4 py-2 rounded hover:bg-gray-800 transition">About</a>
+                <a href="#" onclick="showTab('blogs')" class="block px-4 py-2 rounded hover:bg-gray-800 transition">Blogs</a>
+                <a href="#" onclick="showTab('thoughts')" class="block px-4 py-2 rounded hover:bg-gray-800 transition">Thoughts</a>
+                <a href="#" onclick="showTab('postcards')" class="block px-4 py-2 rounded hover:bg-gray-800 transition">Postcards</a>
+            </nav>
+            <div class="p-4">
+                <button onclick="logout()" class="w-full px-4 py-2 bg-gray-800 rounded hover:bg-gray-700 text-sm transition">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-8 overflow-y-auto h-screen bg-gray-50">
+            
+            <!-- About Tab -->
+            <div id="tab-about" class="tab-content hidden space-y-6">
+                <h2 class="text-3xl font-bold text-gray-900">Home & About Page</h2>
+                
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">Home Page Photo</h3>
+                    <form id="homePhotoForm" class="space-y-4">
+                        <label class="block text-sm font-medium text-gray-700">Upload Image</label>
+                        <input type="file" id="homePhotoFile" accept="image/*" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Upload & Save</button>
+                        <div id="homePhotoMsg" class="mt-2 text-sm text-green-600"></div>
+                    </form>
+                </div>
+
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">About Bio</h3>
+                    <form id="aboutForm">
+                        <textarea id="aboutBio" rows="6" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"></textarea>
+                        <button type="submit" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Save Bio</button>
+                        <div id="aboutMsg" class="mt-2 text-sm text-green-600"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Blogs Tab -->
+            <div id="tab-blogs" class="tab-content hidden space-y-6">
+                <h2 class="text-3xl font-bold text-gray-900">Blogs</h2>
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">New Blog</h3>
+                    <form id="essayForm" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                                <input type="text" id="jTitle" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                <input type="text" id="jDate" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                            <div class="prose max-w-none">
+                                <textarea id="jContent"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Publish Blog</button>
+                    </form>
+                </div>
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">Existing Blogs</h3>
+                    <div id="essayList" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- Thoughts Tab -->
+            <div id="tab-thoughts" class="tab-content hidden space-y-6">
+                <h2 class="text-3xl font-bold text-gray-900">Thoughts</h2>
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">Add Thought</h3>
+                    <form id="thoughtForm" class="space-y-4">
+                        <textarea id="thoughtContent" required rows="3" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500" placeholder="Write a new fragment..."></textarea>
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Save Thought</button>
+                    </form>
+                </div>
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <div id="thoughtsList" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- Postcards Tab -->
+            <div id="tab-postcards" class="tab-content hidden space-y-6">
+                <h2 class="text-3xl font-bold text-gray-900">Postcards</h2>
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">Add Image</h3>
+                    <form id="postcardForm" class="space-y-4">
+                        <input type="file" id="postcardFile" accept="image/*" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
+                        <button type="submit" id="postcardSubmitBtn" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Upload Image</button>
+                        <div id="postcardMsg" class="mt-2 text-sm text-green-600"></div>
+                    </form>
+                </div>
+                <div class="bg-white p-6 rounded shadow-sm border border-gray-200">
+                    <div id="postcardsList" class="grid grid-cols-3 gap-4"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '';
+        let token = localStorage.getItem('adminToken');
+        let easyMDE = null;
+
+        if (token) showDashboard();
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const msg = document.getElementById('loginMsg');
+            
+            try {
+                const formData = new URLSearchParams();
+                formData.append('username', 'admin');
+                formData.append('password', password);
+                
+                const res = await fetch(`${API_URL}/api/token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    token = data.access_token;
+                    localStorage.setItem('adminToken', token);
+                    showDashboard();
+                } else {
+                    msg.textContent = 'Invalid password';
+                }
+            } catch (err) {
+                msg.textContent = 'Connection error';
+            }
+        });
+
+        function showDashboard() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            showTab('about'); // Default tab
+            if (!easyMDE) easyMDE = new EasyMDE({ element: document.getElementById('jContent') });
+        }
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            token = null;
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            
+            if (tabId === 'about') loadAbout();
+            if (tabId === 'blogs') loadBlogs();
+            if (tabId === 'thoughts') loadThoughts();
+            if (tabId === 'postcards') loadPostcards();
+        }
+
+        async function uploadFile(fileInputId, previousUrl = null) {
+            const fileInput = document.getElementById(fileInputId);
+            if (!fileInput.files[0]) return null;
+            
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+            if (previousUrl) {
+                formData.append("previous_url", previousUrl);
+            }
+            
+            const res = await fetch(`${API_URL}/api/upload`, {
+                method: "POST",
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
+            });
+            if (!res.ok) throw new Error("Upload failed");
+            const data = await res.json();
+            return data.url;
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            if (!options.headers) options.headers = {};
+            options.headers['Authorization'] = `Bearer ${token}`;
+            if (!options.headers['Content-Type'] && options.method !== 'DELETE') {
+                options.headers['Content-Type'] = 'application/json';
+            }
+            const res = await fetch(API_URL + url, options);
+            if (res.status === 401) { logout(); throw new Error("Unauthorized"); }
+            return res;
+        }
+
+        let currentHomePhotoUrl = null;
+
+        // About & Home Photo
+        async function loadAbout() {
+            const res = await fetch(`${API_URL}/api/content/about_bio`);
+            const data = await res.json();
+            document.getElementById('aboutBio').value = data.content || '';
+
+            const resPhoto = await fetch(`${API_URL}/api/content/home_photo`);
+            const dataPhoto = await resPhoto.json();
+            if (dataPhoto.content) {
+                currentHomePhotoUrl = dataPhoto.content;
+                document.getElementById('homePhotoMsg').innerHTML = `Current: <a href="${dataPhoto.content}" target="_blank" class="underline text-indigo-600">View Image</a>`;
+                document.getElementById('homePhotoFile').required = false;
+            }
+        }
+        
+        document.getElementById('aboutForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('aboutMsg');
+            await fetchWithAuth('/api/content/about_bio', {
+                method: 'PUT',
+                body: JSON.stringify({ content: document.getElementById('aboutBio').value })
+            });
+            msg.textContent = 'Bio Saved!';
+            setTimeout(() => msg.textContent = '', 3000);
+        });
+
+        document.getElementById('homePhotoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('homePhotoMsg');
+            msg.textContent = 'Uploading...';
+            try {
+                let url = null;
+                if (document.getElementById('homePhotoFile').files.length > 0) {
+                    url = await uploadFile('homePhotoFile', currentHomePhotoUrl);
+                } else {
+                    // Just resaving to show success message if they hit save without new file
+                    msg.textContent = 'No new file selected.';
+                    setTimeout(() => msg.textContent = '', 2000);
+                    return;
+                }
+                if (url) {
+                    await fetchWithAuth('/api/content/home_photo', {
+                        method: 'PUT',
+                        body: JSON.stringify({ content: url })
+                    });
+                    msg.textContent = 'Photo Uploaded & Saved!';
+                    document.getElementById('homePhotoFile').required = false;
+                    setTimeout(() => msg.innerHTML = `Current: <a href="${url}" target="_blank" class="underline text-indigo-600">View Image</a>`, 3000);
+                }
+            } catch (err) {
+                msg.textContent = 'Upload Failed!';
+                msg.className = 'mt-2 text-sm text-red-600';
+                setTimeout(() => { msg.textContent = ''; msg.className = 'mt-2 text-sm text-green-600'; }, 3000);
+            }
+        });
+
+        // Blogs
+        async function loadBlogs() {
+            const res = await fetch(`${API_URL}/api/blogs`);
+            const entries = await res.json();
+            const list = document.getElementById('essayList');
+            list.innerHTML = entries.map(e => `
+                <div class="flex justify-between items-center p-4 border rounded hover:shadow-sm transition bg-gray-50">
+                    <div><h4 class="font-bold text-gray-900">${e.title}</h4><p class="text-sm text-gray-500">${e.date}</p></div>
+                    <button onclick="deleteBlog(${e.id})" class="text-red-500 hover:text-red-700 text-sm font-medium transition">Delete</button>
+                </div>
+            `).join('');
+        }
+        document.getElementById('essayForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const content = easyMDE.value();
+            if (!content) return alert("Content is required");
+            await fetchWithAuth('/api/blogs', {
+                method: 'POST',
+                body: JSON.stringify({
+                    title: document.getElementById('jTitle').value,
+                    date: document.getElementById('jDate').value,
+                    content: content
+                })
+            });
+            document.getElementById('essayForm').reset();
+            easyMDE.value('');
+            loadBlogs();
+        });
+        async function deleteBlog(id) {
+            if (confirm("Delete blog?")) {
+                await fetchWithAuth(`/api/blogs/${id}`, { method: 'DELETE' });
+                loadBlogs();
+            }
+        }
+
+        // Thoughts
+        async function loadThoughts() {
+            const res = await fetch(`${API_URL}/api/thoughts`);
+            const data = await res.json();
+            document.getElementById('thoughtsList').innerHTML = data.map(t => `
+                <div class="flex justify-between items-center p-4 border rounded hover:shadow-sm transition bg-gray-50">
+                    <p class="text-gray-800 italic">"${t.content}"</p>
+                    <button onclick="deleteThought(${t.id})" class="text-red-500 hover:text-red-700 text-sm font-medium ml-4 transition">Delete</button>
+                </div>
+            `).join('');
+        }
+        document.getElementById('thoughtForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await fetchWithAuth('/api/thoughts', {
+                method: 'POST',
+                body: JSON.stringify({ content: document.getElementById('thoughtContent').value })
+            });
+            document.getElementById('thoughtForm').reset();
+            loadThoughts();
+        });
+        async function deleteThought(id) {
+            if (confirm("Delete thought?")) {
+                await fetchWithAuth(`/api/thoughts/${id}`, { method: 'DELETE' });
+                loadThoughts();
+            }
+        }
+
+        // Postcards
+        async function loadPostcards() {
+            const res = await fetch(`${API_URL}/api/postcards`);
+            const data = await res.json();
+            document.getElementById('postcardsList').innerHTML = data.map(p => `
+                <div class="relative group rounded overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="${p.image_url}" class="w-full h-48 object-cover">
+                    <button onclick="deletePostcard(${p.id})" class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition shadow">Delete</button>
+                </div>
+            `).join('');
+        }
+        document.getElementById('postcardForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('postcardMsg');
+            const btn = document.getElementById('postcardSubmitBtn');
+            btn.textContent = 'Uploading...';
+            btn.disabled = true;
+            try {
+                const url = await uploadFile('postcardFile');
+                if (url) {
+                    await fetchWithAuth('/api/postcards', {
+                        method: 'POST',
+                        body: JSON.stringify({ image_url: url })
+                    });
+                    document.getElementById('postcardForm').reset();
+                    loadPostcards();
+                    msg.textContent = 'Uploaded!';
+                }
+            } catch (err) {
+                msg.textContent = 'Upload Failed!';
+                msg.className = 'mt-2 text-sm text-red-600';
+            }
+            btn.textContent = 'Upload Image';
+            btn.disabled = false;
+            setTimeout(() => { msg.textContent = ''; msg.className = 'mt-2 text-sm text-green-600'; }, 3000);
+        });
+        async function deletePostcard(id) {
+            if (confirm("Delete postcard?")) {
+                await fetchWithAuth(`/api/postcards/${id}`, { method: 'DELETE' });
+                loadPostcards();
+            }
+        }
+    </script>
+</body>
+</html>

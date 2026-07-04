@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subrato. | Contact</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-circle">s</div>
+            journey
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="career.html">Career</a>
+            <a href="blogs.html">Blogs</a>
+            <a href="thoughts.html">Thoughts</a>
+            <a href="postcards.html">Postcards</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="contact.html" class="active">Contact</a>
+
+        </div>
+    </nav>
+    
+    <main class="page-contact">
+        <div class="content-left">
+            <span class="overline">Say Something</span>
+            <h2 class="section-title">Write me <br><em>a letter.</em></h2>
+            <div class="script-text" style="color: var(--text-main); font-size: 1.2rem;">— I read every one.</div>
+        </div>
+        <div class="content-right">
+            <form id="contactForm" class="contact-form">
+                <div class="input-group">
+                    <label>Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Letter</label>
+                    <textarea id="letter" name="letter" required></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="btn-submit">Send the letter</button>
+                <div id="formMessage" style="margin-top: 1rem; font-size: 0.9rem; text-align: center;"></div>
+            </form>
+        </div>
+    </main>
+    
+    <footer>
+        <div>
+            <div class="footer-logo">journey.</div>
+            <div class="footer-desc">A slow archive of a life still being written.</div>
+        </div>
+        <div class="footer-credits">
+            © 2026 — MADE WITH PATIENCE
+        </div>
+    </footer>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            formMessage.textContent = '';
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                letter: document.getElementById('letter').value
+            };
+            
+            try {
+                
+                const response = await fetch(`${API_URL}/api/contact`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    formMessage.textContent = 'Thank you! Your letter has been sent.';
+                    formMessage.style.color = '#4ade80'; // Success green
+                    document.getElementById('contactForm').reset();
+                } else {
+                    formMessage.textContent = result.detail || 'Failed to send message. Please try again.';
+                    formMessage.style.color = '#f87171'; // Error red
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                formMessage.textContent = 'An error occurred. Please try again later.';
+                formMessage.style.color = '#f87171';
+            } finally {
+                submitBtn.textContent = 'Send the letter';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

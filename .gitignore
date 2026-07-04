@@ -1,0 +1,30 @@
+# Virtual environments
+venv/
+env/
+__pycache__/
+*/__pycache__/
+
+# Python artifacts
+*.pyc
+*.pyo
+*.pyd
+
+# Environment Variables (Crucial to hide secrets)
+.env
+*.env
+backend/.env
+
+# Local Database files
+*.db
+cms.db
+database.db
+backend/cms.db
+backend/database.db
+
+# User Uploads
+uploads/
+backend/uploads/
+
+# OS generated files
+.DS_Store
+Thumbs.db
