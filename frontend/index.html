@@ -11,10 +11,8 @@
 
 <body>
     <nav>
-        <a href="index.html" class="logo">
-            <div class="logo-circle">S</div> Subrato.
-        </a>
-        
+        <a href="index.html" class="logo">Subrato.</a>
+
         <div class="hamburger">
             <span></span>
             <span></span>
@@ -35,9 +33,11 @@
 
     <main class="page-home">
         <div class="content-left">
-            <span class="overline">Present Tense</span>
+            <span class="overline">Subrato Singh</span>
             <h1 class="section-title">Alive, curious, <br><em>and</em> — <br>figuring it out.</h1>
-            <p class="about-text" style="font-size: 1.1rem; color: var(--text-muted); max-width: 500px; margin-bottom: 2rem;">A small corner of the internet where I dump code, thoughts, and occasionally some photos.</p>
+            <p class="about-text"
+                style="font-size: 1.1rem; color: var(--text-muted); max-width: 500px; margin-bottom: 2rem;">A small
+                corner of the internet where I dump code, thoughts, and occasionally some photos.</p>
 
             <div class="btn-group">
                 <a href="blogs.html" class="btn-primary">Read the blogs ↗</a>
@@ -69,7 +69,7 @@
     </footer>
 
     <script>
-        
+
         async function fetchHomePhoto() {
             try {
                 const res = await fetch(`${API_URL}/api/content/home_photo`);
