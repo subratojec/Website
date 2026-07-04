@@ -3,4 +3,4 @@
 
 const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:8000'
-    : 'https://your-backend-app-name.onrender.com'; // REPLACE THIS with your actual Render URL!
+    : 'https://website-1-ot33.onrender.com';
