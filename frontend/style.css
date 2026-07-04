@@ -76,9 +76,14 @@ nav {
 
 .nav-links a { 
     color: var(--text-muted); font-size: 1.4rem; font-weight: 500; 
-    transition: color 0.3s ease; 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    display: inline-block;
 }
-.nav-links a:hover, .nav-links a.active { color: #fff; }
+.nav-links a:hover, .nav-links a.active { 
+    color: #fff; 
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
 
 /* Main Container */
 main {
@@ -154,17 +159,23 @@ footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-
 .btn-submit:hover { background-color: var(--accent-color); color: white; }
 
 @media (max-width: 900px) {
-    .page-home, .page-about, .page-contact { flex-direction: column; gap: 3rem; }
+    .page-about, .page-contact { flex-direction: column; gap: 3rem; }
     .section-title { font-size: 2.5rem; margin-bottom: 1.5rem; }
-    main { padding: 7rem 5% 3rem 5%; }
+    main { padding: 6rem 5% 3rem 5%; }
     
-    /* Layout Adjustments */
-    .content-right { width: 100%; display: flex; flex-direction: column; align-items: center; }
-    .hero-image { width: 100%; max-width: 400px; aspect-ratio: 4/5; margin-bottom: 1rem; border-radius: 20px; }
+    /* Perfect Mobile Homepage Ordering */
+    main.page-home { display: flex; flex-direction: column; }
+    .page-home .content-left, .page-home .content-right { display: contents; }
+    
+    .page-home .overline { order: 1; margin-top: 3rem; }
+    .page-home .section-title { order: 2; margin-bottom: 2.5rem; }
+    .page-home .hero-image { order: 3; width: 100%; max-width: 400px; aspect-ratio: 4/5; margin: 0 auto 1.5rem auto; border-radius: 20px; align-self: center; }
+    .page-home .script-text { order: 4; align-self: center; margin-bottom: 3.5rem; }
+    .page-home .about-text { order: 5; margin-bottom: 2rem; font-size: 1.1rem; }
+    .page-home .btn-group { order: 6; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .page-home .location { order: 7; margin-top: 2rem; }
+
+    /* Other Layout Adjustments */
     .drop-cap { font-size: 4rem; }
-    .about-text { font-size: 1.1rem; }
-    .btn-group { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-    
-    /* Footer */
     footer { flex-direction: column; text-align: center; gap: 1.5rem; }
 }
