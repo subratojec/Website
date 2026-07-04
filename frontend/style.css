@@ -159,7 +159,8 @@ footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-
     main { padding: 7rem 5% 3rem 5%; }
     
     /* Layout Adjustments */
-    .hero-image { max-width: 100%; aspect-ratio: 1/1; margin-bottom: 1rem; }
+    .content-right { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .hero-image { width: 100%; max-width: 400px; aspect-ratio: 4/5; margin-bottom: 1rem; border-radius: 20px; }
     .drop-cap { font-size: 4rem; }
     .about-text { font-size: 1.1rem; }
     .btn-group { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
