@@ -179,3 +179,26 @@ footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-
     .drop-cap { font-size: 4rem; }
     footer { flex-direction: column; text-align: center; gap: 1.5rem; }
 }
+
+.footer-icons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.footer-icons a {
+    color: var(--text-muted);
+    transition: color 0.3s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-icons a:hover {
+    color: var(--text-main);
+}
+
+.footer-icons svg {
+    width: 20px;
+    height: 20px;
+}
