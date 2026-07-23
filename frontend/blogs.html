@@ -62,18 +62,20 @@
     <script>
         async function fetchJournal() {
             try {
-                const res = await fetch(`${API_URL}/api/blogs`);
-                const entries = await res.json();
+                const query = '*[_type == "blog"] | order(date desc)';
+                const res = await fetch(getSanityUrl(query));
+                const { result: entries } = await res.json();
+                
                 const list = document.getElementById('essayList');
-                if (entries.length === 0) {
+                if (!entries || entries.length === 0) {
                     list.innerHTML = '<div style="color: var(--text-muted); font-size: 1.1rem;">No blogs published yet.</div>';
                     return;
                 }
                 
                 list.innerHTML = entries.map(entry => {
-                    const snippet = entry.content.replace(/[#_*>`]/g, '').substring(0, 150) + (entry.content.length > 150 ? '...' : '');
+                    const snippet = (entry.content || '').replace(/[#_*>`]/g, '').substring(0, 150) + ((entry.content || '').length > 150 ? '...' : '');
                     return `
-                    <div style="cursor: pointer; transition: transform 0.2s; padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1.5rem; background-color: rgba(255,255,255,0.02);" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--accent-color)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-color)'" onclick="window.location.href='blog.html?id=${entry.id}'">
+                    <div style="cursor: pointer; transition: transform 0.2s; padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1.5rem; background-color: rgba(255,255,255,0.02);" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--accent-color)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-color)'" onclick="window.location.href='blog.html?id=${entry._id}'">
                         <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">${entry.date}</div>
                         <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.2;">${entry.title}</h3>
                         <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">${snippet}</p>

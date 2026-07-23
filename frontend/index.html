@@ -80,10 +80,14 @@
 
         async function fetchHomePhoto() {
             try {
-                const res = await fetch(`${API_URL}/api/content/home_photo`);
-                const data = await res.json();
-                if (data.content) {
-                    document.getElementById('heroImage').style.backgroundImage = `url('${data.content}')`;
+                const query = '*[_type == "contentBlock" && contentId == "home_photo"][0]{ content, "imageUrl": image.asset->url }';
+                const res = await fetch(getSanityUrl(query));
+                const { result: data } = await res.json();
+                if (data) {
+                    const bgUrl = data.imageUrl || data.content;
+                    if (bgUrl) {
+                        document.getElementById('heroImage').style.backgroundImage = `url('${bgUrl}')`;
+                    }
                 }
             } catch (err) {
                 console.error("Error fetching home photo:", err);

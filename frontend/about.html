@@ -73,12 +73,16 @@
         
         async function fetchBio() {
             try {
-                const res = await fetch(`${API_URL}/api/content/about_bio`);
-                const data = await res.json();
-                if (data.content) {
+                const query = '*[_type == "contentBlock" && contentId == "about_bio"][0]';
+                const res = await fetch(getSanityUrl(query));
+                const { result: data } = await res.json();
+                if (data && data.content) {
                     const text = data.content;
                     document.getElementById('aboutDropCap').textContent = text.charAt(0);
                     document.getElementById('aboutBioText').innerHTML = text.substring(1);
+                } else {
+                    document.getElementById('aboutBioText').innerHTML = "Bio coming soon.";
+                    document.getElementById('aboutDropCap').textContent = "";
                 }
             } catch (err) {
                 console.error("Error fetching bio", err);

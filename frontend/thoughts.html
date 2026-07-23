@@ -64,10 +64,12 @@
         
         async function fetchThoughts() {
             try {
-                const res = await fetch(`${API_URL}/api/thoughts`);
-                const thoughts = await res.json();
+                const query = '*[_type == "thought"] | order(_createdAt desc)';
+                const res = await fetch(getSanityUrl(query));
+                const { result: thoughts } = await res.json();
+                
                 const list = document.getElementById('thoughtsList');
-                if (thoughts.length === 0) {
+                if (!thoughts || thoughts.length === 0) {
                     list.innerHTML = '<div class="list-item"><p class="item-desc">No thoughts yet.</p></div>';
                     return;
                 }

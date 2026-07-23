@@ -61,10 +61,12 @@
         
         async function fetchPostcards() {
             try {
-                const res = await fetch(`${API_URL}/api/postcards`);
-                const postcards = await res.json();
+                const query = '*[_type == "postcard"] | order(_createdAt desc) { "image_url": image.asset->url }';
+                const res = await fetch(getSanityUrl(query));
+                const { result: postcards } = await res.json();
+                
                 const grid = document.getElementById('postcardsGrid');
-                if (postcards.length === 0) {
+                if (!postcards || postcards.length === 0) {
                     grid.innerHTML = '<p style="color: var(--text-muted);">No postcards yet.</p>';
                     return;
                 }
