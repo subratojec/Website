@@ -73,7 +73,7 @@
     <script>
         async function fetchTimeline() {
             const container = document.getElementById('timelineScroll');
-            const query = '*[_type == "timelineItem"] | order(year desc)';
+            const query = '*[_type == "timelineItem"] | order(date asc)';
             const url = getSanityUrl(query);
             
             try {

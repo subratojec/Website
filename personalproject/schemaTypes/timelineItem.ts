@@ -21,10 +21,10 @@ export default defineType({
       type: 'string',
     }),
     defineField({
-      name: 'order',
-      title: 'Order',
-      type: 'number',
-      description: 'Used to sort the timeline items (e.g. 1, 2, 3...)',
+      name: 'date',
+      title: 'Date (for sorting)',
+      type: 'date',
+      description: 'Pick any date in that month/year. This is used strictly for sorting the timeline chronologically.',
     }),
   ],
 })
