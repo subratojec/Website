@@ -35,9 +35,22 @@
             <h1 style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--text-main); margin-bottom: 0.5rem;">Collected Along the Way</h1>
             <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 3rem;">Ideas, lessons, and moments worth remembering.</p>
             
-            <div class="item-list" id="thoughtsList">
-                <div class="list-item">
-                    <p class="item-desc">Loading thoughts...</p>
+            <div class="horizontal-timeline-wrapper">
+                <div class="horizontal-timeline" id="thoughtsList">
+                    <div class="ht-item">
+                        <div class="ht-box">
+                            <p>Loading thoughts...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ht-nav">
+                    <button class="ht-nav-btn" aria-label="Previous" onclick="const t = document.getElementById('thoughtsList'); t.scrollBy({left: -t.querySelector('.ht-item').offsetWidth, behavior: 'smooth'})">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="ht-nav-btn" aria-label="Next" onclick="const t = document.getElementById('thoughtsList'); t.scrollBy({left: t.querySelector('.ht-item').offsetWidth, behavior: 'smooth'})">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -74,8 +87,10 @@
                     return;
                 }
                 list.innerHTML = thoughts.map(t => `
-                    <div class="list-item" style="padding: 2rem; border-left: 3px solid var(--accent-color); background-color: rgba(255,255,255,0.02); border-radius: 0 12px 12px 0; margin-bottom: 1.5rem;">
-                        <p style="color: var(--text-main); font-size: 1.4rem; line-height: 1.6; font-style: italic;">"${t.content}"</p>
+                    <div class="ht-item">
+                        <div class="ht-box" style="display: flex; align-items: center; justify-content: center; height: 100%; border-radius: 12px; background-color: rgba(255,255,255,0.02); transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--accent-color)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-color)'">
+                            <p style="color: var(--text-main); font-size: 1.4rem; line-height: 1.6; font-style: italic;">"${t.content}"</p>
+                        </div>
                     </div>
                 `).join('');
             } catch (err) {
