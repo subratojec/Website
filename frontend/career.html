@@ -85,7 +85,7 @@
                         <div style="${cardStyle}" ${hoverAttr}>
                             <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">${item.duration || ''} ${item.company ? '| ' + item.company : ''}</div>
                             <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.2;">${item.role || ''}</h3>
-                            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">${item.description || ''}</p>
+                            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap;">${item.description || ''}</p>
                         </div>
                     `).join('');
                 } else {
@@ -105,7 +105,7 @@
                                 ${item.title || ''}
                                 ${item.link ? `<a href="${item.link}" target="_blank" style="margin-left: 10px; display: inline-block; transform: translateY(2px); color: var(--text-muted);" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-muted)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>` : ''}
                             </h3>
-                            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">${item.description || ''}</p>
+                            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap;">${item.description || ''}</p>
                         </div>
                     `).join('');
                 } else {
