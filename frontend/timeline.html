@@ -36,52 +36,14 @@
             
             <div class="horizontal-timeline-wrapper">
                 <div class="horizontal-timeline" id="timelineScroll">
-                    <div class="ht-item">
-                        <div class="ht-box">
-                            <h4>B.Tech IT Graduation</h4>
-                            <p>Closing out the final year of engineering studies.</p>
-                        </div>
-                        <div class="ht-connector"></div>
-                        <div class="ht-axis"></div>
-                        <div class="ht-year">2026</div>
-                    </div>
-                    
-                    <div class="ht-item">
-                        <div class="ht-box">
-                            <h4>GKE Turns 10 Hackathon</h4>
-                            <p>Prototyping cluster architectures and pushing boundaries.</p>
-                        </div>
-                        <div class="ht-connector"></div>
-                        <div class="ht-axis"></div>
-                        <div class="ht-year">2025</div>
-                    </div>
-
-                    <div class="ht-item">
-                        <div class="ht-box">
-                            <h4>First Step into Cloud</h4>
-                            <p>Exploring cloud technologies and decentralized systems.</p>
-                        </div>
-                        <div class="ht-connector"></div>
-                        <div class="ht-axis"></div>
-                        <div class="ht-year">2024</div>
-                    </div>
-                    
-                    <div class="ht-item">
-                        <div class="ht-box">
-                            <h4>Started Engineering</h4>
-                            <p>The journey begins in IT engineering.</p>
-                        </div>
-                        <div class="ht-connector"></div>
-                        <div class="ht-axis"></div>
-                        <div class="ht-year">2022</div>
-                    </div>
+                    <!-- Dynamic Content From Sanity -->
                 </div>
                 
                 <div class="ht-nav">
-                    <button class="ht-nav-btn" aria-label="Previous" onclick="document.getElementById('timelineScroll').scrollBy({left: -280, behavior: 'smooth'})">
+                    <button class="ht-nav-btn" aria-label="Previous" onclick="const t = document.getElementById('timelineScroll'); t.scrollBy({left: -t.querySelector('.ht-item').offsetWidth, behavior: 'smooth'})">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     </button>
-                    <button class="ht-nav-btn" aria-label="Next" onclick="document.getElementById('timelineScroll').scrollBy({left: 280, behavior: 'smooth'})">
+                    <button class="ht-nav-btn" aria-label="Next" onclick="const t = document.getElementById('timelineScroll'); t.scrollBy({left: t.querySelector('.ht-item').offsetWidth, behavior: 'smooth'})">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
                 </div>
@@ -106,5 +68,39 @@
             © 2026 — MADE WITH PATIENCE
         </div>
     </footer>
+
+    <script>
+        async function fetchTimeline() {
+            const container = document.getElementById('timelineScroll');
+            const query = '*[_type == "timelineItem"] | order(order asc)';
+            const url = getSanityUrl(query);
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.result && data.result.length > 0) {
+                    container.innerHTML = data.result.map(item => `
+                        <div class="ht-item">
+                            <div class="ht-box">
+                                <h4>${item.title || ''}</h4>
+                                <p>${item.description || ''}</p>
+                            </div>
+                            <div class="ht-connector"></div>
+                            <div class="ht-axis"></div>
+                            <div class="ht-year">${item.year || ''}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p class="empty-state">No timeline items found in CMS yet.</p>';
+                }
+            } catch (error) {
+                console.error("Failed to load timeline items:", error);
+                container.innerHTML = '<p class="empty-state">Failed to load timeline items.</p>';
+            }
+        }
+        
+        fetchTimeline();
+    </script>
 </body>
 </html>
