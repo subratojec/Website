@@ -629,6 +629,7 @@ footer {
     .horizontal-timeline {
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        max-width: 560px;
     }
     .overline, .section-title {
         width: 100%;
@@ -701,7 +702,7 @@ footer {
     padding-bottom: 2rem;
     scrollbar-width: none;
     width: 100%;
-    max-width: 560px;
+    max-width: 840px;
 }
 
 .horizontal-timeline::-webkit-scrollbar {
@@ -712,7 +713,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 33.333%;
     flex-shrink: 0;
 }
 
@@ -726,6 +727,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     background-color: transparent;
+    flex-grow: 1;
 }
 
 .ht-box h4 {
