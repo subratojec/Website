@@ -73,6 +73,45 @@
         const cardStyle = "padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1.5rem; background-color: rgba(255,255,255,0.02); transition: transform 0.2s, border-color 0.2s;";
         const hoverAttr = "onmouseover=\"this.style.transform='translateY(-4px)'; this.style.borderColor='var(--accent-color)'\" onmouseout=\"this.style.transform='translateY(0)'; this.style.borderColor='var(--border-color)'\"";
 
+        function calculateDuration(durationStr) {
+            if (!durationStr) return '';
+            try {
+                // Look for common separators
+                let sep = durationStr.includes('--') ? '--' : (durationStr.includes('-') ? '-' : null);
+                if (!sep) return '';
+                
+                const parts = durationStr.split(sep).map(s => s.trim());
+                if (parts.length !== 2) return '';
+
+                const parseDate = (dStr) => {
+                    if (dStr.toLowerCase() === 'present') return new Date();
+                    const dParts = dStr.split('/');
+                    if (dParts.length === 3) return new Date(dParts[2], parseInt(dParts[1]) - 1, dParts[0]);
+                    return new Date(dStr);
+                };
+
+                const startDate = parseDate(parts[0]);
+                const endDate = parseDate(parts[1]);
+                if (isNaN(startDate) || isNaN(endDate)) return '';
+
+                let months = (endDate.getFullYear() - startDate.getFullYear()) * 12;
+                months -= startDate.getMonth();
+                months += endDate.getMonth();
+                months = months <= 0 ? 1 : months + 1; // inclusive
+
+                const yrs = Math.floor(months / 12);
+                const mths = months % 12;
+                
+                let result = [];
+                if (yrs > 0) result.push(yrs + (yrs === 1 ? ' yr' : ' yrs'));
+                if (mths > 0) result.push(mths + (mths === 1 ? ' mo' : ' mos'));
+                
+                return result.length > 0 ? ' · ' + result.join(' ') : '';
+            } catch(e) {
+                return '';
+            }
+        }
+
         async function fetchCareerData() {
             try {
                 // Fetch Experience
@@ -83,7 +122,9 @@
                 if (expData.result && expData.result.length > 0) {
                     expContainer.innerHTML = expData.result.map(item => `
                         <div style="${cardStyle}" ${hoverAttr}>
-                            <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">${item.duration || ''} ${item.company ? '| ' + item.company : ''}</div>
+                            <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                ${item.duration || ''} <span style="opacity:0.8">${calculateDuration(item.duration)}</span> ${item.company ? '| ' + item.company : ''}
+                            </div>
                             <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.2;">${item.role || ''}</h3>
                             <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap;">${item.description || ''}</p>
                         </div>
