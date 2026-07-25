@@ -183,6 +183,12 @@ main {
     display: block;
 }
 
+.page-tagline {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
 .section-title {
     font-family: var(--font-serif);
     font-size: 4rem;
@@ -453,6 +459,29 @@ footer {
     overflow: hidden;
 }
 
+.postcard-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: inherit;
+}
+
+@media (max-width: 768px) {
+    .gallery-item {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none; /* Hide scrollbar Firefox */
+    }
+    .gallery-item::-webkit-scrollbar {
+        display: none; /* Hide scrollbar Chrome/Safari */
+    }
+    .postcard-img {
+        width: auto;
+        min-height: 300px;
+        max-width: none;
+    }
+}
+
 .gallery-item:hover {
     filter: grayscale(0%);
     transform: scale(1.02);
@@ -630,7 +659,7 @@ footer {
         -webkit-overflow-scrolling: touch;
         max-width: 560px;
     }
-    .overline, .section-title {
+    .overline, .section-title, .page-tagline {
         width: 100%;
         text-align: center;
     }

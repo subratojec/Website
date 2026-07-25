@@ -33,7 +33,7 @@
     <main class="page-gallery">
         <div>
             <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 0.5rem;">Postcards.</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 3rem;">Places I've been, moments I wanted to keep.</p>
+            <p class="page-tagline">Places I've been, moments I wanted to keep.</p>
             
             <div class="gallery-grid" id="postcardsGrid">
                 <p style="color: var(--text-muted);">Loading postcards...</p>
@@ -73,7 +73,7 @@
                 }
                 grid.innerHTML = postcards.map(p => `
                     <div class="gallery-item">
-                        <img src="${p.image_url}" style="width: 100%; height: auto; display: block; border-radius: inherit;" alt="Postcard" loading="lazy">
+                        <img src="${p.image_url}" class="postcard-img" alt="Postcard" loading="lazy">
                     </div>
                 `).join('');
             } catch (err) {
