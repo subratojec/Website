@@ -73,7 +73,7 @@
         
         async function fetchBio() {
             try {
-                const query = '*[_type == "contentBlock" && contentId == "about_bio"][0]';
+                const query = '*[_type == "contentBlock" && (contentId == "about_bio" || contentId == "about-bio")][0]';
                 const res = await fetch(getSanityUrl(query));
                 const { result: data } = await res.json();
                 if (data && data.content) {
