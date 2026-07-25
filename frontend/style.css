@@ -467,18 +467,11 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .gallery-item {
-        overflow-x: auto;
-        overflow-y: hidden;
-        scrollbar-width: none; /* Hide scrollbar Firefox */
-    }
-    .gallery-item::-webkit-scrollbar {
-        display: none; /* Hide scrollbar Chrome/Safari */
-    }
     .postcard-img {
-        width: auto;
-        min-height: 300px;
-        max-width: none;
+        width: 100%;
+        min-height: 120px;
+        object-fit: cover;
+        object-position: center;
     }
 }
 
