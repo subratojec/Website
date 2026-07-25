@@ -32,7 +32,6 @@
     
     <main class="page-list">
         <div>
-            <span class="overline">Thoughts & Fragments</span>
             <h2 class="section-title">Collected Along the Way</h2>
             <p style="color: var(--text-muted); margin-bottom: 3rem; font-weight: 300;">Ideas, lessons, and moments worth remembering.</p>
             
@@ -75,8 +74,8 @@
                     return;
                 }
                 list.innerHTML = thoughts.map(t => `
-                    <div class="list-item">
-                        <p class="item-desc">"${t.content}"</p>
+                    <div class="list-item" style="padding: 2rem; border-left: 3px solid var(--accent-color); background-color: rgba(255,255,255,0.02); border-radius: 0 12px 12px 0; margin-bottom: 1.5rem;">
+                        <p style="color: var(--text-main); font-size: 1.4rem; line-height: 1.6; font-style: italic;">"${t.content}"</p>
                     </div>
                 `).join('');
             } catch (err) {
