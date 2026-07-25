@@ -613,6 +613,44 @@ footer {
         text-align: center;
         gap: 1.5rem;
     }
+  .footer-icons {
+    justify-content: center;
+    gap: 1rem;
+  }
+  .footer-logo,
+  .footer-desc,
+  .footer-credits {
+    width: 100%;
+    text-align: center;
+  }
+    /* Mobile timeline tweaks */
+    .horizontal-timeline-wrapper {
+        padding: 0 1rem;
+    }
+    .ht-item {
+    width: calc(50% - 1rem);
+    margin-right: 1rem;
+    scroll-snap-align: start;
+}
+
+.horizontal-timeline {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile wrapper alignment */
+@media (max-width: 900px) {
+    .horizontal-timeline-wrapper {
+        justify-content: flex-start;
+    }
+}
+
+    .ht-year {
+        font-size: 2rem;
+    }
+    .ht-box h4 {
+        font-size: 1rem;
+    }
 }
 
 .footer-icons {
@@ -721,6 +759,11 @@ footer {
 }
 
 .ht-nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+}
+
     width: 45px;
     height: 45px;
     background-color: #5c9c9b;
@@ -736,4 +779,20 @@ footer {
 
 .ht-nav-btn:hover {
     background-color: #4a7f7e;
+}
+@media (max-width: 600px) {
+  .ht-item {
+    width: 150px;
+  }
+  .ht-year {
+    font-size: 1.5rem;
+  }
+  .ht-box h4 {
+    font-size: 0.9rem;
+  }
+  .ht-nav-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
 }
