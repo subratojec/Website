@@ -36,16 +36,17 @@
                 <p style="color: var(--text-muted); font-size: 1.1rem;">Things I’ve helped build, in chronological-ish order.</p>
             </div>
             
-            <div style="display: flex; flex-direction: column; width: 100%;">
-                <div style="padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1.5rem; background-color: rgba(255,255,255,0.02); transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--accent-color)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-color)'">
-                    <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">January 2026</div>
-                    <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.2;">AI Legal Case Management System</h3>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">Architected a major B.Tech project utilizing RAG and Streamlit deployment for precedent search.</p>
+            <div style="width: 100%; margin-bottom: 4rem;">
+                <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--text-main); margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Experience</h2>
+                <div id="experienceList" style="display: flex; flex-direction: column; width: 100%;">
+                    <!-- Dynamic Experience Content -->
                 </div>
-                <div style="padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1.5rem; background-color: rgba(255,255,255,0.02); transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--accent-color)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-color)'">
-                    <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Late 2025</div>
-                    <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.2;">Freelance Team Management</h3>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">Managed a team to source, secure, and deliver technical freelancing projects for global clients.</p>
+            </div>
+
+            <div style="width: 100%; margin-bottom: 4rem;">
+                <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--text-main); margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Projects</h2>
+                <div id="projectList" style="display: flex; flex-direction: column; width: 100%;">
+                    <!-- Dynamic Projects Content -->
                 </div>
             </div>
         </div>
@@ -68,5 +69,54 @@
             © 2026 — MADE WITH PATIENCE
         </div>
     </footer>
+    <script>
+        const cardStyle = "padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1.5rem; background-color: rgba(255,255,255,0.02); transition: transform 0.2s, border-color 0.2s;";
+        const hoverAttr = "onmouseover=\"this.style.transform='translateY(-4px)'; this.style.borderColor='var(--accent-color)'\" onmouseout=\"this.style.transform='translateY(0)'; this.style.borderColor='var(--border-color)'\"";
+
+        async function fetchCareerData() {
+            try {
+                // Fetch Experience
+                const expContainer = document.getElementById('experienceList');
+                const expQuery = '*[_type == "experienceItem"] | order(order asc)';
+                const expData = await fetch(getSanityUrl(expQuery)).then(res => res.json());
+                
+                if (expData.result && expData.result.length > 0) {
+                    expContainer.innerHTML = expData.result.map(item => `
+                        <div style="${cardStyle}" ${hoverAttr}>
+                            <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">${item.duration || ''} ${item.company ? '| ' + item.company : ''}</div>
+                            <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.2;">${item.role || ''}</h3>
+                            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">${item.description || ''}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    expContainer.innerHTML = '<p class="empty-state">No experience items found in CMS yet.</p>';
+                }
+
+                // Fetch Projects
+                const projContainer = document.getElementById('projectList');
+                const projQuery = '*[_type == "projectItem"] | order(order asc)';
+                const projData = await fetch(getSanityUrl(projQuery)).then(res => res.json());
+                
+                if (projData.result && projData.result.length > 0) {
+                    projContainer.innerHTML = projData.result.map(item => `
+                        <div style="${cardStyle}" ${hoverAttr}>
+                            <div style="font-size: 0.85rem; color: var(--accent-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">${item.date || ''} ${item.techStack ? '| ' + item.techStack : ''}</div>
+                            <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.2;">
+                                ${item.title || ''}
+                                ${item.link ? `<a href="${item.link}" target="_blank" style="margin-left: 10px; display: inline-block; transform: translateY(2px); color: var(--text-muted);" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-muted)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>` : ''}
+                            </h3>
+                            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">${item.description || ''}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    projContainer.innerHTML = '<p class="empty-state">No projects found in CMS yet.</p>';
+                }
+            } catch (error) {
+                console.error("Failed to load career data:", error);
+            }
+        }
+        
+        fetchCareerData();
+    </script>
 </body>
 </html>
