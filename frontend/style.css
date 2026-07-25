@@ -447,13 +447,10 @@ footer {
 }
 
 .gallery-item {
-    aspect-ratio: 16/9;
-    background-color: var(--border-color);
-    background-size: cover;
-    background-position: center;
     border-radius: 12px;
     filter: grayscale(30%);
     transition: filter 0.4s ease, transform 0.4s ease;
+    overflow: hidden;
 }
 
 .gallery-item:hover {
