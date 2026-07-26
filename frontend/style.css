@@ -371,6 +371,10 @@ footer {
     justify-content: center;
 }
 
+.page-list > div {
+    width: 100%;
+}
+
 .item-list {
     display: flex;
     flex-direction: column;
