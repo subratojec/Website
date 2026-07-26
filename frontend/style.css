@@ -650,23 +650,6 @@ footer {
         overflow: visible;
     }
 
-    .horizontal-timeline-wrapper {
-        padding: 0 1rem;
-        margin-top: 2rem;
-        justify-content: flex-start;
-    }
-
-    .ht-item {
-        width: 100%;
-        scroll-snap-align: center;
-    }
-
-    .horizontal-timeline {
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        max-width: 560px;
-    }
-
     .overline,
     .section-title,
     .page-tagline,
@@ -690,22 +673,6 @@ footer {
         text-align: center;
     }
 
-    /* Duplicate mobile timeline block removed – consolidated earlier */
-
-    /* Mobile wrapper alignment */
-    @media (max-width: 900px) {
-        .horizontal-timeline-wrapper {
-            justify-content: flex-start;
-        }
-    }
-
-    .ht-year {
-        font-size: 2rem;
-    }
-
-    .ht-box h4 {
-        font-size: 1rem;
-    }
 }
 
 .footer-icons {
@@ -746,6 +713,7 @@ footer {
     overflow-x: hidden;
     scroll-behavior: smooth;
     padding-bottom: 2rem;
+    padding-top: 15px;
     scrollbar-width: none;
     width: 100%;
     max-width: 840px;
@@ -850,17 +818,27 @@ footer {
     color: var(--bg-color);
 }
 
-@media (max-width: 600px) {
-    .ht-item {
-        width: 100%;
+@media (max-width: 900px) {
+    .horizontal-timeline-wrapper {
+        padding: 0 1rem;
+        justify-content: flex-start;
     }
 
-    .ht-year {
-        font-size: 1.8rem;
+    .horizontal-timeline {
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        max-width: 560px;
+    }
+
+    .ht-item {
+        width: 100%;
+        scroll-snap-align: center;
     }
 
     .ht-box {
         padding: 1.5rem;
+        width: 100%;
+        max-width: 100%;
     }
 
     .ht-box h4 {
@@ -869,6 +847,11 @@ footer {
 
     .ht-box p {
         font-size: 0.95rem;
+        word-break: break-word;
+    }
+
+    .ht-year {
+        font-size: 1.8rem;
     }
 
     .ht-nav-btn {
