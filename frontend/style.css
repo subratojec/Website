@@ -827,11 +827,15 @@ footer {
     .horizontal-timeline {
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        width: 100%;
         max-width: 560px;
     }
 
     .ht-item {
+        flex: 0 0 100%;
         width: 100%;
+        min-width: 100%;
+        max-width: 100%;
         scroll-snap-align: center;
     }
 
