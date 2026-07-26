@@ -561,7 +561,8 @@ footer {
         gap: 3rem;
     }
 
-    .page-about .content-left {
+    .page-about .content-left,
+    .page-contact .content-left {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -759,22 +760,30 @@ footer {
     align-items: center;
     width: 33.333%;
     flex-shrink: 0;
+    min-width: 0;
 }
 
 .ht-box {
-    border: 1px solid var(--accent-color);
-    padding: 1.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
     text-align: center;
     width: 90%;
-    min-height: 100px;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.02);
     flex-grow: 1;
     word-wrap: break-word;
     overflow-wrap: break-word;
     min-width: 0;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.ht-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-color);
 }
 
 .ht-box h4 {
