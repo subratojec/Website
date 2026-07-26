@@ -648,8 +648,8 @@ footer {
     }
 
     .ht-item {
-        width: 50%;
-        scroll-snap-align: start;
+        width: 100%;
+        scroll-snap-align: center;
     }
 
     .horizontal-timeline {
@@ -825,20 +825,28 @@ footer {
 
 @media (max-width: 600px) {
     .ht-item {
-        width: 50%;
+        width: 100%;
     }
 
     .ht-year {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .ht-box {
+        padding: 1.5rem;
     }
 
     .ht-box h4 {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
+    }
+
+    .ht-box p {
+        font-size: 0.95rem;
     }
 
     .ht-nav-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 0.9rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
     }
 }
