@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --bg-color: #22223B;
-    --text-main: #fefae0;
-    --accent-color: #d4a373;
-    --text-muted: #ccd5ae;
+    --bg-color: #252422;
+    --text-main: #fffcf2;
+    --accent-color: #ffe1a8;
+    --text-muted: #ffcb69;
     --border-color: #262626;
     --font-serif: 'Space Grotesk', sans-serif;
     --font-sans: 'Outfit', sans-serif;
@@ -114,7 +114,7 @@ nav {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(34, 34, 59, 0.98);
+    background-color: rgba(20, 20, 20, 0.98);
     backdrop-filter: blur(15px);
     z-index: 1001;
     display: flex;
@@ -156,7 +156,7 @@ nav {
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--text-main);
-    text-shadow: 0 0 15px rgba(254, 250, 224, 0.4);
+    text-shadow: 0 0 15px rgba(169, 132, 103, 0.4);
     transform: scale(1.1);
 }
 
@@ -263,7 +263,7 @@ footer {
     background-size: cover;
     background-position: center 20%;
     border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 163, 115, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(169, 132, 103, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.05);
     filter: contrast(1.05) saturate(1.1);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -271,7 +271,7 @@ footer {
 
 .hero-image:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 163, 115, 0.25);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(169, 132, 103, 0.25);
     filter: contrast(1.1) saturate(1.2);
 }
 
@@ -366,7 +366,8 @@ footer {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content */
+    align-items: center;
+    /* Center content */
     justify-content: center;
 }
 
@@ -634,50 +635,61 @@ footer {
         text-align: center;
         gap: 1.5rem;
     }
-      /* Mobile layout fixes */
+
+    /* Mobile layout fixes */
     .page-list {
         overflow: visible;
     }
+
     .horizontal-timeline-wrapper {
         padding: 0 1rem;
         margin-top: 2rem;
         justify-content: flex-start;
     }
+
     .ht-item {
         width: 50%;
         scroll-snap-align: start;
     }
+
     .horizontal-timeline {
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         max-width: 560px;
     }
-    .overline, .section-title, .page-tagline {
+
+    .overline,
+    .section-title,
+    .page-tagline {
         width: 100%;
         text-align: center;
     }
-  .footer-icons {
-    justify-content: center;
-    gap: 1rem;
-  }
-  .footer-logo,
-  .footer-desc,
-  .footer-credits {
-    width: 100%;
-    text-align: center;
-  }
+
+    .footer-icons {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .footer-logo,
+    .footer-desc,
+    .footer-credits {
+        width: 100%;
+        text-align: center;
+    }
+
     /* Duplicate mobile timeline block removed – consolidated earlier */
 
-/* Mobile wrapper alignment */
-@media (max-width: 900px) {
-    .horizontal-timeline-wrapper {
-        justify-content: flex-start;
+    /* Mobile wrapper alignment */
+    @media (max-width: 900px) {
+        .horizontal-timeline-wrapper {
+            justify-content: flex-start;
+        }
     }
-}
 
     .ht-year {
         font-size: 2rem;
     }
+
     .ht-box h4 {
         font-size: 1rem;
     }
@@ -810,19 +822,23 @@ footer {
     background-color: var(--accent-color);
     color: var(--bg-color);
 }
+
 @media (max-width: 600px) {
-  .ht-item {
-    width: 50%;
-  }
-  .ht-year {
-    font-size: 1.5rem;
-  }
-  .ht-box h4 {
-    font-size: 0.9rem;
-  }
-  .ht-nav-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 0.9rem;
-  }
+    .ht-item {
+        width: 50%;
+    }
+
+    .ht-year {
+        font-size: 1.5rem;
+    }
+
+    .ht-box h4 {
+        font-size: 0.9rem;
+    }
+
+    .ht-nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
 }
