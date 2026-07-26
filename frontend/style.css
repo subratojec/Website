@@ -561,6 +561,13 @@ footer {
         gap: 3rem;
     }
 
+    .page-about .content-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
     .section-title {
         font-size: 2.5rem;
         margin-bottom: 1.5rem;
@@ -660,7 +667,11 @@ footer {
 
     .overline,
     .section-title,
-    .page-tagline {
+    .page-tagline,
+    .script-text,
+    .page-list h1,
+    .page-list h1 + p,
+    .page-list > div > div > h2 {
         width: 100%;
         text-align: center;
     }
@@ -761,6 +772,9 @@ footer {
     justify-content: center;
     background-color: transparent;
     flex-grow: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-width: 0;
 }
 
 .ht-box h4 {
