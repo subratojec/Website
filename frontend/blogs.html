@@ -63,7 +63,7 @@
     <script>
         async function fetchJournal() {
             try {
-                const query = '*[_type == "blog"] | order(date desc)';
+                const query = '*[_type == "blog"] | order(_createdAt desc)';
                 const res = await fetch(getSanityUrl(query));
                 const { result: entries } = await res.json();
                 
