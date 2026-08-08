@@ -8,6 +8,11 @@
     <script src="config.js"></script>
     <!-- Marked library for parsing Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- Highlight.js for Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
     <style>
         .post-container {
             max-width: 800px;
@@ -38,19 +43,57 @@
             margin-bottom: 1rem;
         }
         .post-content pre {
-            background: var(--bg-alt);
-            padding: 1rem;
-            border-radius: 4px;
+            background: #282c34; /* Dark background for code blocks */
+            padding: 1.5rem;
+            border-radius: 8px;
             overflow-x: auto;
-            margin: 1.5rem 0;
-            border: 1px solid var(--border);
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .post-content code {
+            font-family: 'Courier New', Courier, monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--accent-color, #ffaa00);
+        }
+        .post-content pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
         }
         .post-content blockquote {
-            border-left: 3px solid var(--text-main);
-            margin: 1.5rem 0;
-            padding-left: 1rem;
+            border-left: 4px solid var(--text-main);
+            margin: 2rem 0;
+            padding-left: 1.5rem;
             font-style: italic;
             opacity: 0.8;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        .post-content ul, .post-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+        .post-content li {
+            margin-bottom: 0.8rem;
+        }
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .post-content hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color, rgba(255, 255, 255, 0.1));
+            margin: 3rem 0;
         }
         .back-link {
             display: inline-block;
@@ -135,6 +178,16 @@
                     return;
                 }
                 
+                // Configure Marked to use Highlight.js
+                marked.setOptions({
+                    highlight: function(code, lang) {
+                        if (lang && hljs.getLanguage(lang)) {
+                            return hljs.highlight(code, { language: lang }).value;
+                        }
+                        return hljs.highlightAuto(code).value;
+                    }
+                });
+
                 // Use Marked.js to parse the markdown content to HTML
                 const parsedContent = marked.parse(post.content || '');
                 
